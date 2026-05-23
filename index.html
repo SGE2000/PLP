@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Plus Salud | Profesionales de salud cerquita de ti</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #f4f9fe; color: #1a2c3e; scroll-behavior: smooth; }
+    :root {
+      --primary: #0a6e8c;
+      --primary-dark: #065269;
+      --primary-light: #e1f0f5;
+      --accent: #2c9cd4;
+      --white: #ffffff;
+      --gray-100: #f8fafc;
+      --gray-200: #eef2f6;
+      --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 20px 25px -12px rgba(0, 0, 0, 0.08);
+    }
+    .navbar { background: var(--white); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 100; padding: 0.8rem 2rem; }
+    .nav-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, var(--primary) 0%, #0f8bb3 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .logo i { color: var(--primary); margin-right: 6px; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #1e3a4d; transition: 0.2s; cursor: pointer; }
+    .nav-links a:hover, .nav-links a.active-tab { color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 4px; }
+    .btn-cita { background: var(--primary); color: white !important; padding: 0.5rem 1.2rem; border-radius: 40px; font-weight: 600; box-shadow: 0 2px 6px rgba(10,110,140,0.2); }
+    .btn-cita:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary) !important; padding: 0.4rem 1rem; border-radius: 40px; font-weight: 600; }
+    .hero { background: linear-gradient(135deg, rgba(10,110,140,0.85), rgba(6,82,105,0.9)), url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80'); background-size: cover; background-position: center 30%; padding: 4rem 2rem; text-align: center; color: white; }
+    .hero-content h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.5rem 0; }
+    .badge-specialty { background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); padding: 0.5rem 1.2rem; border-radius: 50px; font-weight: 500; color: white; }
+    .contact-hero { margin-top: 1.5rem; font-size: 1.1rem; background: rgba(0,0,0,0.2); display: inline-block; padding: 0.6rem 1.8rem; border-radius: 60px; }
+    .section-title { text-align: center; font-size: 2rem; font-weight: 700; margin: 2.5rem 0 1.5rem; color: #0a4b62; }
+    .cards-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.8rem; padding: 0 1.5rem; }
+    .card-espec { background: white; border-radius: 32px; padding: 1.8rem 0.8rem; text-align: center; transition: all 0.25s; box-shadow: var(--shadow-sm); cursor: pointer; }
+    .card-espec i { font-size: 2.6rem; color: var(--primary); margin-bottom: 1rem; }
+    .card-espec h3 { font-size: 1.2rem; font-weight: 600; }
+    .card-espec:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); background: #f9fdfe; }
+    .active-filter-card { background: var(--primary-light); border: 1px solid var(--primary); }
+    .doctors-section, .planes-section, .empresarial-section, .medicos-section, .pacientes-section { background: white; margin: 2rem 0; padding: 2rem 1.5rem; border-radius: 2rem; max-width: 1400px; margin-left: auto; margin-right: auto; box-shadow: var(--shadow-sm); }
+    .filter-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .search-box { display: flex; align-items: center; background: var(--gray-100); border-radius: 60px; padding: 0.5rem 1rem; border: 1px solid #cbdde9; }
+    .search-box input { border: none; background: transparent; padding: 0.5rem; width: 220px; outline: none; }
+    .table-wrapper { overflow-x: auto; border-radius: 1.2rem; }
+    .doctors-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 700px; }
+    .doctors-table th { background: var(--primary-light); padding: 1rem 0.8rem; text-align: left; font-weight: 700; color: var(--primary-dark); }
+    .doctors-table td { padding: 1rem 0.8rem; border-bottom: 1px solid #e2edf2; vertical-align: top; cursor: pointer; }
+    .doctors-table tr:hover { background: #f0f9ff; }
+    .planes-grid, .empresarial-grid, .servicios-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 2rem; }
+    .plan-card { background: var(--white); border-radius: 2rem; box-shadow: var(--shadow-md); padding: 1.8rem; width: 320px; transition: all 0.2s; border: 1px solid #e2edf2; }
+    .price { font-size: 2rem; font-weight: 800; color: #0a4b62; margin: 0.5rem 0; }
+    .btn-plan { background: var(--primary); color: white; border: none; padding: 0.6rem; width: 100%; border-radius: 40px; font-weight: bold; margin-top: 1rem; cursor: pointer; }
+    .btn-plan-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+    .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin: 2rem 0; }
+    .logo-item { background: #f8fafc; border-radius: 1rem; padding: 0.8rem 1.5rem; font-weight: 600; color: var(--primary); border: 1px solid #e2edf2; }
+    .testimonial-card { background: var(--primary-light); border-radius: 1.5rem; padding: 1.5rem; margin: 1rem; max-width: 350px; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content { background: white; max-width: 500px; width: 90%; border-radius: 2rem; padding: 2rem; position: relative; }
+    .close-modal { position: absolute; right: 1.5rem; top: 1rem; font-size: 1.8rem; cursor: pointer; }
+    .form-group { margin-bottom: 1rem; }
+    label { font-weight: 600; display: block; margin-bottom: 0.3rem; }
+    input, select, textarea { width: 100%; padding: 0.75rem; border-radius: 1rem; border: 1px solid #cbd5e1; }
+    button[type="submit"] { background: var(--primary); color: white; border: none; padding: 0.9rem; width: 100%; border-radius: 3rem; font-weight: bold; margin-top: 1rem; cursor: pointer; }
+    footer { background: #0a2e3b; color: #dceef5; text-align: center; padding: 2rem; margin-top: 3rem; }
+    @media (max-width: 760px) { .nav-container { flex-direction: column; gap: 0.8rem; } .hero-content h1 { font-size: 1.8rem; } }
+    .tab-content { display: none; }
+    .tab-content.active-tab-content { display: block; }
+    .empresarial-hero, .medicos-hero, .pacientes-hero { background: linear-gradient(135deg, #0a6e8c, #043b4a); color: white; padding: 3rem; border-radius: 2rem; text-align: center; margin-bottom: 2rem; }
+    .two-columns { display: flex; flex-wrap: wrap; gap: 2rem; margin: 2rem 0; }
+    .col { flex: 1; min-width: 250px; }
+    .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin: 2rem 0; }
+    .stat-card { background: var(--primary-light); border-radius: 2rem; padding: 1.5rem; text-align: center; min-width: 150px; }
+    .portal-feature { background: white; border-radius: 1.5rem; padding: 1.5rem; margin: 1rem; box-shadow: var(--shadow-sm); text-align: center; flex: 1; }
+    .especialidades-lista { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 2rem 0; }
+    .especialidad-tag { background: var(--primary-light); padding: 0.5rem 1rem; border-radius: 40px; font-size: 0.85rem; color: var(--primary-dark); }
+    .aseguradoras-grid { display: flex; justify-content: center; gap: 2rem; margin: 1rem 0; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo"><i class="fas fa-heartbeat"></i> Plus Salud</div>
+    <div class="nav-links">
+      <a class="tab-link" data-tab="inicio">Inicio</a>
+      <a class="tab-link" data-tab="medicos">Médicos</a>
+      <a class="tab-link" data-tab="pacientes">Pacientes</a>
+      <a class="tab-link" data-tab="especialidades-tab">Especialidades</a>
+      <a class="tab-link" data-tab="equipo">Equipo</a>
+      <a class="tab-link" data-tab="planes">Planes</a>
+      <a class="tab-link" data-tab="empresarial">Empresarial</a>
+      <a href="#" id="openModalBtn" class="btn-cita"><i class="fab fa-whatsapp"></i> Agendar cita</a>
+      <a href="#" id="openRegisterBtn" class="btn-outline"><i class="fas fa-user-plus"></i> Crear cuenta</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Contenido Inicio (existente) -->
+  <div id="inicioContent" class="tab-content active-tab-content">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>💙 Profesionales de salud cerquita de ti</h1>
+        <div class="hero-tags"><span class="badge-specialty">🏥 Medicina Especializada</span><span class="badge-specialty">🦷 Odontología</span><span class="badge-specialty">🩺 Medicina General</span><span class="badge-specialty">🧠 Psicología</span><span class="badge-specialty">🥗 Nutrición</span></div>
+        <div class="contact-hero">📍 TGU, Edificio Millenium ll &nbsp;|&nbsp; 📲 (+504) 8765-5578</div>
+      </div>
+    </section>
+    <section id="especialidades"><h2 class="section-title">📌 Especialidades destacadas</h2><div class="cards-grid" id="specialtyCardsContainer"></div></section>
+  </div>
+
+  <!-- Pestaña Médicos (existente) -->
+  <div id="medicosContent" class="tab-content">
+    <section class="medicos-section">
+      <div class="medicos-hero"><h1>Conecta con tus pacientes y transforma tu clínica</h1><p>Únete a PLUS SALUD y obtén acceso a nuestro Portal Médico.</p><button class="btn-plan" id="btnMeInteresaMedico">Me interesa</button><button class="btn-plan btn-plan-outline" id="btnIniciarSesionMedico">Inicia sesión</button></div>
+      <div class="stats-grid"><div class="stat-card"><i class="fas fa-stethoscope"></i><h2>+135</h2><p>Especialistas</p></div><div class="stat-card"><i class="fas fa-flask"></i><h2>25</h2><p>Laboratorios</p></div><div class="stat-card"><i class="fas fa-x-ray"></i><h2>20</h2><p>Radiología</p></div><div class="stat-card"><i class="fas fa-tooth"></i><h2>+110</h2><p>Odontólogos</p></div></div>
+      <div class="two-columns"><div class="col"><h3>Portal Médico</h3><p>Agenda, expediente, documentos, firma digital</p></div><div class="col"><h3>Beneficios</h3><p>Software gratuito, integración con seguros, +31k pacientes</p></div></div>
+      <button class="btn-plan" id="btnDemoMedico">Solicitar demo</button>
+    </section>
+  </div>
+
+  <!-- NUEVA PESTAÑA: PACIENTES -->
+  <div id="pacientesContent" class="tab-content">
+    <section class="pacientes-section">
+      <div class="pacientes-hero">
+        <h1 style="font-size:2.5rem;">Busca, compara y agenda tu cita en línea</h1>
+        <p style="font-size:1.2rem;">Compara precios de servicios y accede a tu expediente médico, todo en un mismo lugar.</p>
+        <button class="btn-plan" id="btnIniciarSesionPaciente" style="width:auto; background:#ffaa33; color:#1e3a4d;">Iniciar sesión</button>
+        <button class="btn-plan btn-plan-outline" id="btnCrearCuentaPaciente" style="background:white; width:auto;">Crear cuenta</button>
+      </div>
+
+      <div style="text-align:center;"><h3>Algunos de nuestros aliados que confían en nosotros</h3><div class="logo-grid" id="pacientesAliadosGrid"></div></div>
+
+      <div style="background:var(--primary-light); border-radius:2rem; padding:2rem; margin:2rem 0;">
+        <h3 style="text-align:center;">Una nueva forma de cuidar tu salud</h3>
+        <p style="text-align:center;">El espacio para almacenar toda tu información médica, agendar citas y simplificar tu historial médico.</p>
+        <div style="text-align:center;"><button class="btn-plan" id="btnCrearCuentaPaciente2" style="width:auto;">Crear cuenta</button></div>
+      </div>
+
+      <h3 class="section-title">La red médica digital</h3>
+      <div class="servicios-grid">
+        <div class="plan-card"><i class="fas fa-user-md fa-2x"></i><h4>Médico</h4><p>Profesionales de salud para tu evaluación y tratamiento.</p></div>
+        <div class="plan-card"><i class="fas fa-flask fa-2x"></i><h4>Laboratorio</h4><p>Análisis clínicos para diagnóstico.</p></div>
+        <div class="plan-card"><i class="fas fa-x-ray fa-2x"></i><h4>Radiología</h4><p>Rayos X, ultrasonidos, mamografías.</p></div>
+        <div class="plan-card"><i class="fas fa-eye fa-2x"></i><h4>Ópticas</h4><p>Exámenes de la vista y lentes.</p></div>
+        <div class="plan-card"><i class="fas fa-prescription-bottle fa-2x"></i><h4>Farmacia</h4><p>Descuentos en medicamentos.</p></div>
+        <div class="plan-card"><i class="fas fa-tooth fa-2x"></i><h4>Odontología</h4><p>Cuida tu sonrisa.</p></div>
+        <div class="plan-card"><i class="fas fa-apple-alt fa-2x"></i><h4>Nutrición</h4><p>Mejora tu dieta.</p></div>
+        <div class="plan-card"><i class="fas fa-brain fa-2x"></i><h4>Salud Mental</h4><p>Terapia individual y de pareja.</p></div>
+        <div class="plan-card"><i class="fas fa-running fa-2x"></i><h4>Terapia Física</h4><p>Rehabilitación y fortalecimiento.</p></div>
+        <div class="plan-card"><i class="fas fa-clinic-medical fa-2x"></i><h4>Clínicas Nacionales</h4><p>Atención primaria en todo el país.</p></div>
+        <div class="plan-card"><i class="fas fa-hospital fa-2x"></i><h4>Hospitales</h4><p>Atención experta y diagnósticos precisos.</p></div>
+      </div>
+
+      <h3 class="section-title">Especialidades en la red médica digital</h3>
+      <div class="especialidades-lista" id="listaEspecialidades"></div>
+
+      <div class="two-columns" style="background:var(--primary-light); border-radius:2rem; padding:2rem;">
+        <div class="col"><i class="fas fa-calendar-check fa-2x"></i><h4>Agenda en línea</h4><p>Accede a nuestro directorio de servicios médicos en red.</p></div>
+        <div class="col"><i class="fas fa-folder-medical fa-2x"></i><h4>Expediente médico</h4><p>Visualiza todos tus documentos médicos: recetas y más.</p></div>
+        <div class="col"><i class="fas fa-credit-card fa-2x"></i><h4>Pago en línea</h4><p>Realiza tus pagos con tarjetas de crédito y débito.</p></div>
+      </div>
+
+      <div style="background:white; border-radius:2rem; padding:2rem; margin:2rem 0; text-align:center; border:1px solid #e2edf2;">
+        <h3>Plan Salud Digital: Nuestro plan es cuidarte</h3>
+        <p>Atención médica general gratuita, descuentos exclusivos y mucho más.</p>
+        <button class="btn-plan" id="btnConocePlanPaciente" style="width:auto;">Conoce más</button>
+        <p><strong>Desde L 99.00</strong></p>
+      </div>
+
+      <div style="background:var(--primary-light); border-radius:2rem; padding:2rem; margin:2rem 0; text-align:center;">
+        <h3>Seguro Médico</h3>
+        <p>Si cuentas con un Seguro Médico Colectivo, aprovecha los beneficios: Accede a la Red Médica Digital, paga el copago en línea, evita formularios de reclamo.</p>
+        <div class="aseguradoras-grid">
+          <span class="badge-specialty" style="background:var(--primary);">Compañía de Seguros ASSA</span>
+          <span class="badge-specialty" style="background:var(--primary);">Seguros Crefisa</span>
+          <span class="badge-specialty" style="background:var(--primary);">Seguros Equidad</span>
+        </div>
+      </div>
+
+      <h3 class="section-title">¿Qué dicen nuestros pacientes?</h3>
+      <div class="planes-grid" id="testimoniosPacientesGrid"></div>
+
+      <div style="text-align:center; margin:3rem 0; background:#0a4b62; color:white; padding:2rem; border-radius:2rem;">
+        <h3>¡Solicita más información!</h3>
+        <p>Descubre cómo ahorrar en tus gastos de salud y gestionar tu bienestar de forma digital.</p>
+        <button class="btn-plan" id="btnContactarAsesor" style="background:#ffaa33; color:#1e3a4d; width:auto;">Contáctanos</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Resto de pestañas existentes -->
+  <div id="especialidades-tabContent" class="tab-content"><section style="padding:2rem 1.5rem;"><h2 class="section-title">📌 Nuestras Especialidades Médicas</h2><div class="cards-grid" id="specialtyCardsContainer2"></div><p style="text-align:center; margin-top:2rem;">Haz clic en cualquier especialidad para ver los médicos disponibles.</p></section></div>
+  <div id="equipoContent" class="tab-content"><section class="doctors-section"><div class="filter-bar"><div><h2>👩‍⚕️ Nuestros especialistas</h2><div id="activeFilterBadge"></div></div><div style="display:flex; gap:10px;"><div class="search-box"><i class="fas fa-search"></i><input type="text" id="searchDoctor" placeholder="Buscar..."></div><button id="clearSpecialtyFilter" class="btn-outline" style="display:none;">✖ Limpiar filtro</button></div></div><div class="table-wrapper"><table class="doctors-table"><thead><tr><th>Nombre</th><th>Especialidad</th><th>Horario</th><th>Servicio</th><th>Precio Público</th><th>Precio 3ra Edad</th></tr></thead><tbody id="tableBody"></tbody></table></div></section></div>
+  <div id="planesContent" class="tab-content"><section class="planes-section"><h2 class="section-title">Planes de Salud Digital</h2><p style="text-align:center;">Sin límite de edad y uso, todo desde tu celular.</p><div class="planes-grid"><div class="plan-card"><h3>Plan Esencial</h3><div class="price">Gratis</div><button class="btn-plan js-afiliar-plan" data-plan="Esencial">Afiliarme</button></div><div class="plan-card"><h3>Plan Individual</h3><div class="price">L 99/mes</div><button class="btn-plan js-afiliar-plan" data-plan="Individual">Afiliarme</button></div><div class="plan-card"><h3>Plan Familiar</h3><div class="price">L 199/mes</div><button class="btn-plan js-afiliar-plan" data-plan="Familiar">Afiliarme</button></div></div></section></div>
+  <div id="empresarialContent" class="tab-content"><section class="empresarial-section"><div class="empresarial-hero"><h1>PLUS SALUD Business</h1><button class="btn-plan" id="btnMeInteresaEmpresarial">Me interesa</button></div><div class="logo-grid" id="empresasGrid"></div><button id="btnCotizarEmpresarial" class="btn-plan">Solicitar cotización</button></section></div>
+</main>
+
+<footer><p><i class="fas fa-map-marker-alt"></i> Edificio Millenium ll, Tegucigalpa</p><p><i class="fas fa-phone-alt"></i> (+504) 8765-5578</p><p><i class="fas fa-envelope"></i> contacto@plussalud.hn</p><p>&copy; 2025 Plus Salud - Cuidando tu bienestar</p></footer>
+
+<!-- Modales -->
+<div id="citaModal" class="modal"><div class="modal-content"><span class="close-modal">&times;</span><h2>📋 Solicitar cita</h2><form id="appointmentForm"><div class="form-group"><label>Nombre *</label><input type="text" id="fullName" required></div><div class="form-group"><label>Teléfono *</label><input type="tel" id="phone" required></div><div class="form-group"><label>Correo</label><input type="email" id="email"></div><div class="form-group"><label>Especialidad *</label><select id="specialtySelect" required></select></div><div class="form-group"><label>Médico *</label><select id="doctorSelect" required></select></div><div class="form-group"><label>Fecha *</label><input type="date" id="datePick" required></div><div class="form-group"><label>Hora</label><select id="timeSlot"><option>Mañana</option><option>Tarde</option><option>Noche</option></select></div><div class="form-group"><label>Mensaje</label><textarea id="message"></textarea></div><button type="submit"><i class="fab fa-whatsapp"></i> Enviar cita</button></form></div></div>
+<div id="registerModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeRegisterModal">&times;</span><h2>📝 Crear cuenta</h2><form id="registerForm"><div class="form-group"><label>Nombre completo *</label><input type="text" id="regName" required></div><div class="form-group"><label>Correo *</label><input type="email" id="regEmail" required></div><div class="form-group"><label>Teléfono *</label><input type="tel" id="regPhone" required></div><div class="form-group"><label>Contraseña *</label><input type="password" id="regPass" required></div><button type="submit">Crear cuenta <i class="fas fa-envelope"></i></button></form></div></div>
+
+<script>
+  // DATOS MÉDICOS (completos)
+  const medicosData = [
+    { nombre: "Dr. Efraín Gómez", especialidad: "Endocrinólogo", horario: "tarde", servicio: "Consulta especializada", precioPub: "L1,500", precioTercera: "—" },
+    { nombre: "Dra. Odalis Cerrato", especialidad: "Internista", horario: "tarde", servicio: "Consulta especializada", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Dra. Daysi Carbajal", especialidad: "Ginecóloga", horario: "tarde", servicio: "Consulta especializada", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Dr. Carlos Zuniga", especialidad: "Pediatra", horario: "tarde", servicio: "Consulta especializada", precioPub: "—", precioTercera: "—" },
+    { nombre: "Dr. Pablo Espinoza", especialidad: "Oncólogo y Cirujano", horario: "mañana y tarde", servicio: "Consulta especializada", precioPub: "—", precioTercera: "—" },
+    { nombre: "Dr. Mario Moya", especialidad: "Ortopedia, Traumatología y Cirugía", horario: "mañana y tarde", servicio: "Consulta especializada", precioPub: "—", precioTercera: "—" },
+    { nombre: "Dr. Pablo Borjas", especialidad: "Cirujano Laparoscópico", horario: "tarde y noche", servicio: "Consulta especializada", precioPub: "L1,500", precioTercera: "—" },
+    { nombre: "Dr. John Alvarado", especialidad: "Urólogo y Cirujano", horario: "días martes", servicio: "Consulta especializada", precioPub: "—", precioTercera: "—" },
+    { nombre: "Dr. Orlin Medrano", especialidad: "Medicina General", horario: "mañana y tarde", servicio: "Consulta general", precioPub: "L600", precioTercera: "L400" },
+    { nombre: "Dra. Alejandra Flores", especialidad: "Medicina General", horario: "tarde y noche", servicio: "Consulta general", precioPub: "L600", precioTercera: "L400" },
+    { nombre: "Lic. Johana Gómez", especialidad: "Optometrista", horario: "mañana y tarde", servicio: "Consulta", precioPub: "L150", precioTercera: "L100" },
+    { nombre: "Lic. Rosa Sierra", especialidad: "Nutricionista", horario: "tarde", servicio: "Consulta y plan alimenticio", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Lic. Yadira Cabrera", especialidad: "Nutricionista", horario: "mañana", servicio: "Consulta y plan alimenticio", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Lic. Maria Valeriano", especialidad: "Nutricionista", horario: "tarde", servicio: "Consulta y plan alimenticio", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Lic. Claudia Amador", especialidad: "Psicología", horario: "mañana y tarde", servicio: "Consulta", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Lic. Stephany Melgar", especialidad: "Psicología", horario: "tarde", servicio: "Consulta", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Lic. Mario Cortes", especialidad: "Psicología", horario: "tarde", servicio: "Consulta", precioPub: "L1,200", precioTercera: "L800" },
+    { nombre: "Dr. Cesar Linarez", especialidad: "Ortodoncia", horario: "mañana y tarde", servicio: "Consulta", precioPub: "L1,000", precioTercera: "—" },
+    { nombre: "Dr. (nombre pendiente)", especialidad: "Ortodoncia", horario: "fines de semana", servicio: "Consulta", precioPub: "L1,000", precioTercera: "—" },
+    { nombre: "Dr. Roger", especialidad: "Endodoncia", horario: "mañana y tarde", servicio: "Consulta", precioPub: "L1,000", precioTercera: "—" },
+    { nombre: "Dr. Marlon", especialidad: "Odontología", horario: "tarde", servicio: "Consulta", precioPub: "L500", precioTercera: "—" },
+    { nombre: "Dra. Leticia Herrera", especialidad: "Odontología", horario: "mañana y tarde", servicio: "Consulta", precioPub: "L500", precioTercera: "—" }
+  ];
+  const especialidadesUnicas = [...new Map(medicosData.map(m=>[m.especialidad,m.especialidad])).values()];
+  let currentSpecialtyFilter="", currentSearchText="";
+  function renderTable(){ let filtered=medicosData.filter(d=>!currentSpecialtyFilter||d.especialidad===currentSpecialtyFilter); if(currentSearchText.trim()) filtered=filtered.filter(d=>d.nombre.toLowerCase().includes(currentSearchText)||d.especialidad.toLowerCase().includes(currentSearchText)); document.getElementById("tableBody").innerHTML=filtered.map(d=>`<tr><td>${d.nombre}</td><td>${d.especialidad}</td><td>${d.horario}</td><td>${d.servicio}</td><td>${d.precioPub}</td><td>${d.precioTercera}</td></tr>`).join(""); document.querySelectorAll("#tableBody tr").forEach(r=>r.addEventListener("click",()=>{ let nombre=r.cells[0].innerText, esp=r.cells[1].innerText; preCargarModal(esp,nombre); openModal(); })); }
+  function preCargarModal(esp,nombre){ document.getElementById("specialtySelect").value=esp; updateDoctorSelect(esp); setTimeout(()=>{ let opts=[...document.getElementById("doctorSelect").options]; if(opts.some(o=>o.value===nombre)) document.getElementById("doctorSelect").value=nombre; },30);}
+  function updateDoctorSelect(esp){ let sel=document.getElementById("doctorSelect"); sel.innerHTML='<option value="">-- Elija --</option>'; medicosData.filter(m=>m.especialidad===esp).forEach(m=>{let opt=document.createElement("option");opt.value=m.nombre;opt.textContent=m.nombre;sel.appendChild(opt);});}
+  document.getElementById("searchDoctor")?.addEventListener("input",e=>{currentSearchText=e.target.value.toLowerCase();renderTable();});
+  document.getElementById("clearSpecialtyFilter")?.addEventListener("click",()=>{currentSpecialtyFilter="";currentSearchText="";renderTable();});
+  function generateSpecialtyCards(containerId){ let container=document.getElementById(containerId); if(!container) return; let specList=["Odontología","Medicina General","Psicología","Nutricionista","Ginecóloga","Pediatra"]; container.innerHTML=specList.map(s=>`<div class="card-espec" data-spec="${s}"><i class="fas ${s==="Odontología"?"fa-tooth":s==="Psicología"?"fa-brain":s==="Nutricionista"?"fa-apple-alt":"fa-stethoscope"}"></i><h3>${s}</h3></div>`).join(""); document.querySelectorAll(`#${containerId} .card-espec`).forEach(card=>card.addEventListener("click",()=>{ let spec=card.getAttribute("data-spec"); currentSpecialtyFilter=spec; renderTable(); document.getElementById("equipoContent")?.scrollIntoView({behavior:"smooth"}); })); }
+  function populateSpecialtiesModal(){ let sel=document.getElementById("specialtySelect"); sel.innerHTML='<option value="">-- Seleccione --</option>'; especialidadesUnicas.forEach(esp=>{let opt=document.createElement("option");opt.value=esp;opt.textContent=esp;sel.appendChild(opt);}); sel.addEventListener("change",e=>updateDoctorSelect(e.target.value));}
+  (function(){ let v=localStorage.getItem("plus_visitas"); let arr=v?JSON.parse(v):[]; arr.push({timestamp:new Date().toISOString()}); localStorage.setItem("plus_visitas",JSON.stringify(arr)); })();
+  function guardarCitaLocal(d){ let c=localStorage.getItem("citas_solicitadas")?JSON.parse(localStorage.getItem("citas_solicitadas")):[]; c.push(d); localStorage.setItem("citas_solicitadas",JSON.stringify(c)); }
+  document.getElementById("appointmentForm")?.addEventListener("submit",e=>{ e.preventDefault(); let nom=document.getElementById("fullName").value.trim(), tel=document.getElementById("phone").value.trim(), mail=document.getElementById("email").value.trim(), esp=document.getElementById("specialtySelect").value, med=document.getElementById("doctorSelect").value, fecha=document.getElementById("datePick").value, hora=document.getElementById("timeSlot").value, msg=document.getElementById("message").value; if(!nom||!tel||!esp||!med||!fecha) return alert("Complete campos"); let wa=`Hola Plus Salud, solicito cita:%0A👤 ${nom}%0A📞 ${tel}%0A🩺 ${esp}%0A👨‍⚕️ ${med}%0A📅 ${fecha}%0A⏰ ${hora}`; guardarCitaLocal({nom,tel,mail,esp,med,fecha,hora,msg}); window.open(`https://wa.me/50487655578?text=${encodeURIComponent(wa)}`,"_blank"); alert("Cita guardada"); closeModal(); e.target.reset(); });
+  document.getElementById("registerForm")?.addEventListener("submit",e=>{ e.preventDefault(); let name=document.getElementById("regName").value, email=document.getElementById("regEmail").value, phone=document.getElementById("regPhone").value; let body=`Nombre: ${name}%0ACorreo: ${email}%0ATeléfono: ${phone}`; window.location.href=`mailto:plusalud.info@gmail.com?subject=Nueva cuenta Plus Salud&body=${body}`; alert("Solicitud enviada"); closeRegisterModal(); });
+  const modalCita=document.getElementById("citaModal"), modalReg=document.getElementById("registerModal");
+  function openModal(){ if(modalCita) modalCita.style.display="flex"; } function closeModal(){ if(modalCita) modalCita.style.display="none"; }
+  function openRegisterModal(){ if(modalReg) modalReg.style.display="flex"; } function closeRegisterModal(){ if(modalReg) modalReg.style.display="none"; }
+  document.getElementById("openModalBtn")?.addEventListener("click",openModal); document.getElementById("openRegisterBtn")?.addEventListener("click",openRegisterModal);
+  document.querySelectorAll(".close-modal, #closeRegisterModal").forEach(el=>el.addEventListener("click",()=>{ if(modalCita) modalCita.style.display="none"; if(modalReg) modalReg.style.display="none"; }));
+  window.onclick=e=>{ if(e.target===modalCita) closeModal(); if(e.target===modalReg) closeRegisterModal(); };
+  document.querySelectorAll(".js-afiliar-plan").forEach(btn=>btn.addEventListener("click",()=>{ alert(`Plan ${btn.dataset.plan}: complete "Crear cuenta"`); openRegisterModal(); }));
+  const tabs=document.querySelectorAll(".tab-link");
+  const contents={ inicio:"inicioContent", medicos:"medicosContent", pacientes:"pacientesContent", "especialidades-tab":"especialidades-tabContent", equipo:"equipoContent", planes:"planesContent", empresarial:"empresarialContent" };
+  tabs.forEach(tab=>tab.addEventListener("click",()=>{ Object.values(contents).forEach(id=>{let el=document.getElementById(id); if(el) el.classList.remove("active-tab-content");}); let active=document.getElementById(contents[tab.dataset.tab]); if(active) active.classList.add("active-tab-content"); }));
+  generateSpecialtyCards("specialtyCardsContainer"); generateSpecialtyCards("specialtyCardsContainer2"); populateSpecialtiesModal(); renderTable();
+  
+  // Datos para pestaña Pacientes
+  const aliadosPacientes=["Hospital CEMESA","Clínica Médica","Laboratorios Clínica","Radiología Plus","Óptica Visual","Farmacia Salud","Centro Médico","Bienestar Total"];
+  document.getElementById("pacientesAliadosGrid")?.insertAdjacentHTML("beforeend", aliadosPacientes.map(l=>`<div class="logo-item">${l}</div>`).join(""));
+  
+  const especialidadesLista = ["Anestesiología","Angiología","Cardiología","Cirugía Bariátrica","Cirugía General","Cirugía Maxilofacial","Cirugía Oncológica","Cirugía Pediátrica","Cirugía Plástica","Dermatología","Endocrinología","Endodoncia","Gastroenterología","Geriatría","Ginecología","Infectología","Medicina General","Medicina Interna","Nefrología","Neumología","Neurología","Nutrición","Odontología","Oftalmología","Ortodoncia","Ortopedia","Otorrinolaringología","Pediatría","Psicología","Psiquiatría","Reumatología","Urología"];
+  document.getElementById("listaEspecialidades")?.insertAdjacentHTML("beforeend", especialidadesLista.map(e=>`<span class="especialidad-tag">${e}</span>`).join(""));
+  
+  const testimoniosPacientes = [
+    {name:"Karen", text:"El doctor se toma el tiempo de evaluar, muy satisfecha!", doctor:"Dr. Ramón Henríquez"},
+    {name:"Miguel", text:"Excelente médico, encontró el problema que tenía.", doctor:"Dra. Hilary Gonzalez"},
+    {name:"Cinthia", text:"Amable, profesional, explica con detalle. Mi total agradecimiento.", doctor:"Dra. Iveth Cáceres"},
+    {name:"Silvia", text:"Atención excelente, me dio confianza y tranquilidad.", doctor:"Dr. Carlos Barrientos"},
+    {name:"Ricardo", text:"La doctora fue super atenta, plan de seguimiento.", doctor:"Dra. Diana Morales"},
+    {name:"Franklin", text:"Muy buena atención, explica el tratamiento.", doctor:"Dra. Vania Barahona"},
+    {name:"Susana", text:"Excelente atención, muy profesional pero sobre todo humana.", doctor:"Dra. Alicia Castro"}
+  ];
+  document.getElementById("testimoniosPacientesGrid")?.insertAdjacentHTML("beforeend", testimoniosPacientes.map(t=>`<div class="testimonial-card"><i class="fas fa-quote-left"></i><p>${t.text}</p><strong>${t.name}</strong><br>${t.doctor}</div>`).join(""));
+  
+  // Botones pacientes
+  document.getElementById("btnIniciarSesionPaciente")?.addEventListener("click",()=>alert("Próximamente: portal de pacientes. Regístrate con tu correo."));
+  document.getElementById("btnCrearCuentaPaciente")?.addEventListener("click",openRegisterModal);
+  document.getElementById("btnCrearCuentaPaciente2")?.addEventListener("click",openRegisterModal);
+  document.getElementById("btnConocePlanPaciente")?.addEventListener("click",()=>{ document.querySelector('.tab-link[data-tab="planes"]').click(); });
+  document.getElementById("btnContactarAsesor")?.addEventListener("click",()=>window.open("https://wa.me/50487655578?text=Hola%20Plus%20Salud,%20quiero%20más%20información","_blank"));
+  
+  // Botones médicos
+  document.getElementById("btnMeInteresaMedico")?.addEventListener("click",()=>alert("Formulario para médicos: envía un correo a plusalud.info@gmail.com"));
+  document.getElementById("btnIniciarSesionMedico")?.addEventListener("click",()=>alert("Portal Médico: próximamente disponible."));
+  document.getElementById("btnDemoMedico")?.addEventListener("click",()=>alert("Solicita demo: plusalud.info@gmail.com"));
+  
+  // Botones empresariales
+  document.getElementById("btnMeInteresaEmpresarial")?.addEventListener("click",()=>alert("Cotización empresarial: plusalud.info@gmail.com"));
+  document.getElementById("btnCotizarEmpresarial")?.addEventListener("click",()=>alert("Envíanos tus datos a plusalud.info@gmail.com"));
+  const logosEmpresarial=["Tigo","Ficohsa","BAC","Diunsa","Cervecería","Terra"];
+  document.getElementById("empresasGrid")?.insertAdjacentHTML("beforeend", logosEmpresarial.map(l=>`<div class="logo-item">${l}</div>`).join(""));
+</script>
+</body>
+</html>
